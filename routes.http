@@ -1,0 +1,40 @@
+# @name get-prompts
+GET http://localhost:3333/prompts
+
+###
+
+# @name upload
+POST http://localhost:3333/videos HTTP/1.1
+Content-Type: multipart/form-data; boundary=Boundry
+
+
+--Boundry
+Content-Disposition: form-data; name="file"; filename="audio.mp3"
+Content-Type: audio/mpeg
+
+< ./audio.mp3
+--Boundry--
+
+###
+
+
+# @name create-transcription
+POST  http://localhost:3333/videos/326ad7a7-29f4-4e51-bc33-1e4ab526ca77/transcription HTTP/1.1
+Content-Type: application/json
+
+{
+    "prompt": "vai, ganhar, perder"
+}
+
+###
+
+# @name generate-ai-completion
+
+POST http://localhost:333/ai/complete
+Content-Type: application/json
+
+{
+    "videoId": "58d7a662-6d9b-4f88-a1e1-27740c5ff85b",
+    "temperature": 0.5,
+    "prompt": "Gere um resumo sucinto da transcrição do vídeop informado a seguir: '''{transcription}'''"
+}
